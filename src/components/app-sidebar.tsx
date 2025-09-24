@@ -24,7 +24,7 @@ export function AppSidebar({ projects }: AppSidebarProps) {
       <div className="flex h-16 items-center border-b px-6">
         <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
           <Logo className="h-8 w-auto text-primary" />
-          <span>Orientes consultoria</span>
+          <span>Orientes</span>
         </Link>
       </div>
       <div className="flex-1 overflow-y-auto">
