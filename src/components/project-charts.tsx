@@ -2,21 +2,22 @@
 
 import { Task } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { ChartContainer, ChartTooltipContent } from '@/components/ui/chart';
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import { useMemo } from 'react';
 
 const CHART_COLORS = {
-  'A Fazer': 'hsl(var(--muted-foreground) / 0.5)',
-  'Em Progresso': 'hsl(var(--primary))',
-  'Concluído': 'hsl(var(--chart-2))',
+  'A fazer': 'hsl(var(--muted-foreground) / 0.5)',
+  'Em andamento': 'hsl(var(--primary))',
+  'Pausado': 'hsl(35, 92%, 50%)', // Orange/Yellow
+  'Concluído': 'hsl(var(--chart-2))', // Greenish/Accent color from theme
 };
 
 export default function ProjectCharts({ tasks }: { tasks: Task[] }) {
   const chartData = useMemo(() => {
     const statuses = tasks.reduce((acc, task) => {
-      const translatedStatus = task.status === 'To Do' ? 'A Fazer' : task.status === 'In Progress' ? 'Em Progresso' : 'Concluído';
-      acc[translatedStatus] = (acc[translatedStatus] || 0) + 1;
+      const status = task.status;
+      acc[status] = (acc[status] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 

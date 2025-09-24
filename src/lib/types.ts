@@ -8,7 +8,7 @@ export type TeamMember = {
 export type Task = {
   id: string;
   title: string;
-  status: 'A Fazer' | 'Em Progresso' | 'Concluído';
+  status: 'A fazer' | 'Em andamento' | 'Pausado' | 'Concluído';
   assignee?: TeamMember;
 };
 

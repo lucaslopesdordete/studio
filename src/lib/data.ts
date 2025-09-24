@@ -30,9 +30,9 @@ export const teamMembers: TeamMember[] = [
 
 const initialTasks: Task[] = [
     { id: 't1', title: 'Configurar estrutura do projeto', status: 'Concluído', assignee: teamMembers[2] },
-    { id: 't2', title: 'Desenhar mockups da landing page', status: 'Em Progresso', assignee: teamMembers[0] },
-    { id: 't3', title: 'Desenvolver API de autenticação', status: 'A Fazer', assignee: teamMembers[1] },
-    { id: 't4', title: 'Criar texto de marketing', status: 'A Fazer' },
+    { id: 't2', title: 'Desenhar mockups da landing page', status: 'Em andamento', assignee: teamMembers[0] },
+    { id: 't3', title: 'Desenvolver API de autenticação', status: 'A fazer', assignee: teamMembers[1] },
+    { id: 't4', title: 'Criar texto de marketing', status: 'A fazer' },
 ];
 
 export const projects: Project[] = [
@@ -52,7 +52,7 @@ export const projects: Project[] = [
     team: [teamMembers[0], teamMembers[3]],
     tasks: [
         { id: 't5', title: 'Diagrama de fluxo do usuário', status: 'Concluído', assignee: teamMembers[0] },
-        { id: 't6', title: 'Planejar sprints do projeto', status: 'Em Progresso', assignee: teamMembers[3] },
+        { id: 't6', title: 'Planejar sprints do projeto', status: 'Em andamento', assignee: teamMembers[3] },
     ],
   },
 ];

@@ -35,7 +35,7 @@ export default function TaskList({ tasks, teamMembers, onTasksUpdate }: TaskList
     const newTask: Task = {
       id: `task-${Date.now()}`,
       title: newTaskTitle.trim(),
-      status: 'To Do',
+      status: 'A fazer',
     };
     onTasksUpdate([...tasks, newTask]);
     setNewTaskTitle('');
@@ -87,9 +87,10 @@ export default function TaskList({ tasks, teamMembers, onTasksUpdate }: TaskList
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="To Do">A Fazer</SelectItem>
-                  <SelectItem value="In Progress">Em Progresso</SelectItem>
-                  <SelectItem value="Done">Concluído</SelectItem>
+                  <SelectItem value="A fazer">A fazer</SelectItem>
+                  <SelectItem value="Em andamento">Em andamento</SelectItem>
+                  <SelectItem value="Pausado">Pausado</SelectItem>
+                  <SelectItem value="Concluído">Concluído</SelectItem>
                 </SelectContent>
               </Select>
               
