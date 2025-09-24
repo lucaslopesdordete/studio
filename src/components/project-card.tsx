@@ -5,6 +5,7 @@ import { Progress } from '@/components/ui/progress';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { formatDistanceToNow } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 export function ProjectCard({ project }: { project: Project }) {
   const completedTasks = project.tasks.filter(t => t.status === 'Done').length;
@@ -21,13 +22,13 @@ export function ProjectCard({ project }: { project: Project }) {
         <CardContent className="flex-grow space-y-4">
           <div>
             <div className="flex justify-between items-center mb-1">
-              <span className="text-sm font-medium text-muted-foreground">Progress</span>
+              <span className="text-sm font-medium text-muted-foreground">Progresso</span>
               <span className="text-sm font-semibold">{Math.round(progress)}%</span>
             </div>
-            <Progress value={progress} aria-label={`${Math.round(progress)}% complete`} />
+            <Progress value={progress} aria-label={`${Math.round(progress)}% completo`} />
           </div>
           <div>
-            <p className="text-sm font-medium text-muted-foreground mb-2">Team</p>
+            <p className="text-sm font-medium text-muted-foreground mb-2">Equipe</p>
             <div className="flex -space-x-2">
               {project.team.map(member => (
                 <Avatar key={member.id} className="border-2 border-card">
@@ -40,7 +41,7 @@ export function ProjectCard({ project }: { project: Project }) {
         </CardContent>
         <CardFooter>
           <Badge variant={new Date() > deadlineDate ? 'destructive' : 'outline'}>
-            Due {formatDistanceToNow(deadlineDate, { addSuffix: true })}
+            Vence {formatDistanceToNow(deadlineDate, { addSuffix: true, locale: ptBR })}
           </Badge>
         </CardFooter>
       </Card>

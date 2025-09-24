@@ -12,7 +12,7 @@ export const teamMembers: TeamMember[] = [
     id: '2',
     name: 'Bob Williams',
     avatarUrl: PlaceHolderImages.find(img => img.id === 'avatar2')?.imageUrl || '',
-    skills: ['Backend', 'Node.js', 'Databases'],
+    skills: ['Backend', 'Node.js', 'Bancos de Dados'],
   },
   {
     id: '3',
@@ -24,35 +24,35 @@ export const teamMembers: TeamMember[] = [
     id: '4',
     name: 'Diana Prince',
     avatarUrl: PlaceHolderImages.find(img => img.id === 'avatar4')?.imageUrl || '',
-    skills: ['Project Management', 'Agile', 'Scrum'],
+    skills: ['Gerenciamento de Projetos', 'Agile', 'Scrum'],
   },
 ];
 
 const initialTasks: Task[] = [
-    { id: 't1', title: 'Setup project structure', status: 'Done', assignee: teamMembers[2] },
-    { id: 't2', title: 'Design landing page mockups', status: 'In Progress', assignee: teamMembers[0] },
-    { id: 't3', title: 'Develop authentication API', status: 'To Do', assignee: teamMembers[1] },
-    { id: 't4', title: 'Create marketing copy', status: 'To Do' },
+    { id: 't1', title: 'Configurar estrutura do projeto', status: 'Concluído', assignee: teamMembers[2] },
+    { id: 't2', title: 'Desenhar mockups da landing page', status: 'Em Progresso', assignee: teamMembers[0] },
+    { id: 't3', title: 'Desenvolver API de autenticação', status: 'A Fazer', assignee: teamMembers[1] },
+    { id: 't4', title: 'Criar texto de marketing', status: 'A Fazer' },
 ];
 
 export const projects: Project[] = [
   {
     id: 'p1',
-    name: 'E-Commerce Platform',
-    description: 'A full-featured e-commerce platform with a modern frontend and a scalable backend. The platform will support multiple vendors and a wide range of products.',
+    name: 'Plataforma de E-Commerce',
+    description: 'Uma plataforma de e-commerce completa com um frontend moderno e um backend escalável. A plataforma suportará múltiplos vendedores e uma vasta gama de produtos.',
     deadline: new Date(new Date().setDate(new Date().getDate() + 60)).toISOString(),
     team: teamMembers,
     tasks: initialTasks,
   },
   {
     id: 'p2',
-    name: 'Mobile Banking App',
-    description: 'A secure and user-friendly mobile banking application for iOS and Android. Key features include fund transfers, bill payments, and account statement generation.',
+    name: 'Aplicativo de Banco Móvel',
+    description: 'Um aplicativo de banco móvel seguro e fácil de usar para iOS e Android. As principais funcionalidades incluem transferências de fundos, pagamentos de contas e geração de extratos.',
     deadline: new Date(new Date().setDate(new Date().getDate() + 90)).toISOString(),
     team: [teamMembers[0], teamMembers[3]],
     tasks: [
-        { id: 't5', title: 'User flow diagram', status: 'Done', assignee: teamMembers[0] },
-        { id: 't6', title: 'Plan project sprints', status: 'In Progress', assignee: teamMembers[3] },
+        { id: 't5', title: 'Diagrama de fluxo do usuário', status: 'Concluído', assignee: teamMembers[0] },
+        { id: 't6', title: 'Planejar sprints do projeto', status: 'Em Progresso', assignee: teamMembers[3] },
     ],
   },
 ];

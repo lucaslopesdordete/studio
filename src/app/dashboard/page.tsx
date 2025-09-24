@@ -6,7 +6,7 @@ export default function DashboardPage() {
   return (
     <>
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold md:text-3xl">Dashboard</h1>
+        <h1 className="text-2xl font-semibold md:text-3xl">Painel</h1>
         <CreateProjectDialog />
       </div>
       <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

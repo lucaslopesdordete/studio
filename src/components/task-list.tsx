@@ -70,7 +70,7 @@ export default function TaskList({ tasks, teamMembers, onTasksUpdate }: TaskList
       <CardContent className="p-4 space-y-4">
         <div className="flex gap-2">
           <Input
-            placeholder="Add a new task..."
+            placeholder="Adicionar uma nova tarefa..."
             value={newTaskTitle}
             onChange={e => setNewTaskTitle(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && handleAddTask()}
@@ -87,9 +87,9 @@ export default function TaskList({ tasks, teamMembers, onTasksUpdate }: TaskList
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
                 <SelectContent>
-                  {['To Do', 'In Progress', 'Done'].map(status => (
-                    <SelectItem key={status} value={status}>{status}</SelectItem>
-                  ))}
+                  <SelectItem value="To Do">A Fazer</SelectItem>
+                  <SelectItem value="In Progress">Em Progresso</SelectItem>
+                  <SelectItem value="Done">Concluído</SelectItem>
                 </SelectContent>
               </Select>
               
@@ -105,12 +105,12 @@ export default function TaskList({ tasks, teamMembers, onTasksUpdate }: TaskList
                         <span>{task.assignee.name}</span>
                       </div>
                     ) : (
-                      'Unassigned'
+                      'Não atribuído'
                     )}
                   </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="unassigned">Unassigned</SelectItem>
+                  <SelectItem value="unassigned">Não atribuído</SelectItem>
                   {teamMembers.map(member => (
                     <SelectItem key={member.id} value={member.id}>
                        <div className="flex items-center gap-2">
@@ -136,7 +136,7 @@ export default function TaskList({ tasks, teamMembers, onTasksUpdate }: TaskList
                     className="text-destructive"
                     onClick={() => handleDeleteTask(task.id)}
                   >
-                    Delete Task
+                    Excluir Tarefa
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

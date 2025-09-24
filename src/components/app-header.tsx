@@ -20,25 +20,25 @@ export function AppHeader({ onMenuClick }: { onMenuClick?: () => void }) {
         onClick={onMenuClick}
       >
         <Menu className="h-6 w-6" />
-        <span className="sr-only">Toggle Menu</span>
+        <span className="sr-only">Alternar Menu</span>
       </Button>
       <div className="flex-1" />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative h-10 w-10 rounded-full">
             <Avatar className="h-10 w-10">
-              <AvatarImage src="https://picsum.photos/seed/user/40/40" alt="User" data-ai-hint="person face" />
-              <AvatarFallback>PZ</AvatarFallback>
+              <AvatarImage src="https://picsum.photos/seed/user/40/40" alt="Usuário" data-ai-hint="person face" />
+              <AvatarFallback>OC</AvatarFallback>
             </Avatar>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Settings</DropdownMenuItem>
-          <DropdownMenuItem>Support</DropdownMenuItem>
+          <DropdownMenuItem>Configurações</DropdownMenuItem>
+          <DropdownMenuItem>Suporte</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Logout</DropdownMenuItem>
+          <DropdownMenuItem>Sair</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </header>

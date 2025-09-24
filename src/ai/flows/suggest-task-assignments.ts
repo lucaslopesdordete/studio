@@ -14,13 +14,13 @@ import {z} from 'genkit';
 const SuggestTaskAssignmentsInputSchema = z.object({
   projectDescription: z
     .string()
-    .describe('A detailed description of the project.'),
+    .describe('Uma descrição detalhada do projeto.'),
   teamMemberSkills: z
     .array(z.object({name: z.string(), skills: z.array(z.string())}))
     .describe(
-      'An array of team members, where each member has a name and a list of skills.'
+      'Um array de membros da equipe, onde cada membro tem um nome e uma lista de habilidades.'
     ),
-  tasks: z.array(z.string()).describe('A list of tasks to be assigned.'),
+  tasks: z.array(z.string()).describe('Uma lista de tarefas a serem atribuídas.'),
 });
 export type SuggestTaskAssignmentsInput = z.infer<
   typeof SuggestTaskAssignmentsInputSchema
@@ -30,7 +30,7 @@ const SuggestTaskAssignmentsOutputSchema = z.object({
   suggestedAssignments: z
     .array(z.object({task: z.string(), assignee: z.string()}))
     .describe(
-      'An array of suggested task assignments, where each assignment includes the task and the name of the assigned team member.'
+      'Um array de atribuições de tarefas sugeridas, onde cada atribuição inclui a tarefa e o nome do membro da equipe atribuído.'
     ),
 });
 export type SuggestTaskAssignmentsOutput = z.infer<
@@ -47,26 +47,26 @@ const suggestTaskAssignmentsPrompt = ai.definePrompt({
   name: 'suggestTaskAssignmentsPrompt',
   input: {schema: SuggestTaskAssignmentsInputSchema},
   output: {schema: SuggestTaskAssignmentsOutputSchema},
-  prompt: `You are an AI project management assistant tasked with suggesting optimal task assignments.
+  prompt: `Você é um assistente de gerenciamento de projetos de IA encarregado de sugerir atribuições de tarefas ideais.
 
-Analyze the following project description and team member skills to suggest the best team member for each task.
+Analise a seguinte descrição do projeto e as habilidades dos membros da equipe para sugerir o melhor membro da equipe para cada tarefa.
 
-Project Description: {{{projectDescription}}}
+Descrição do Projeto: {{{projectDescription}}}
 
-Team Member Skills:
+Habilidades dos Membros da Equipe:
 {{#each teamMemberSkills}}
-  - Name: {{this.name}}
-    Skills: {{#each this.skills}}{{{this}}}{{#unless @last}}, {{/unless}}{{/each}}
+  - Nome: {{this.name}}
+    Habilidades: {{#each this.skills}}{{{this}}}{{#unless @last}}, {{/unless}}{{/each}}
 {{/each}}
 
-Tasks:
+Tarefas:
 {{#each tasks}}
   - {{{this}}}
 {{/each}}
 
-Suggest task assignments based on the project description and team member skills.  The suggested assignee must be a member of the team.
-Ensure that each task is assigned to the team member with the most relevant skills.
-Output the task and assignee as JSON.
+Sugira atribuições de tarefas com base na descrição do projeto e nas habilidades dos membros da equipe. O responsável sugerido deve ser um membro da equipe.
+Garanta que cada tarefa seja atribuída ao membro da equipe com as habilidades mais relevantes.
+Produza a tarefa e o responsável como JSON.
 `,
 });
 

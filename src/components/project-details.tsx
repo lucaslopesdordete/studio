@@ -8,6 +8,7 @@ import SuggestAssignmentsDialog from '@/components/suggest-assignments-dialog';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { formatDistanceToNow } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 interface ProjectDetailsProps {
     initialProject: Project;
@@ -33,10 +34,10 @@ export default function ProjectDetails({ initialProject }: ProjectDetailsProps) 
         <p className="text-muted-foreground">{project.description}</p>
         <div className="flex flex-wrap items-center gap-4 pt-2 text-sm text-muted-foreground">
             <Badge variant={new Date() > new Date(project.deadline) ? 'destructive' : 'outline'}>
-                Due {formatDistanceToNow(new Date(project.deadline), { addSuffix: true })}
+                Vence {formatDistanceToNow(new Date(project.deadline), { addSuffix: true, locale: ptBR })}
             </Badge>
             <div className="flex items-center gap-2">
-                <span>Team:</span>
+                <span>Equipe:</span>
                 <div className="flex -space-x-2">
                 {project.team.map(member => (
                     <Avatar key={member.id} className="border-2 border-background h-6 w-6">
@@ -52,7 +53,7 @@ export default function ProjectDetails({ initialProject }: ProjectDetailsProps) 
       <ProjectCharts tasks={project.tasks} />
 
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-semibold">Tasks</h2>
+        <h2 className="text-2xl font-semibold">Tarefas</h2>
         <SuggestAssignmentsDialog project={project} onApplySuggestions={handleTasksUpdate} />
       </div>
 

@@ -46,11 +46,11 @@ export default function SuggestAssignmentsDialog({ project, onApplySuggestions }
       });
       setSuggestions(result.suggestedAssignments);
     } catch (error) {
-      console.error('AI suggestion failed:', error);
+      console.error('Falha na sugestão da IA:', error);
       toast({
         variant: 'destructive',
-        title: 'AI Suggestion Failed',
-        description: 'Could not generate task assignments. Please try again.',
+        title: 'Falha na Sugestão da IA',
+        description: 'Não foi possível gerar atribuições de tarefas. Por favor, tente novamente.',
       });
     } finally {
       setIsLoading(false);
@@ -84,20 +84,20 @@ export default function SuggestAssignmentsDialog({ project, onApplySuggestions }
             handleSuggest();
           } else {
              toast({
-                title: 'No unassigned tasks',
-                description: 'All tasks have already been assigned.',
+                title: 'Nenhuma tarefa não atribuída',
+                description: 'Todas as tarefas já foram atribuídas.',
             });
           }
         }}>
           <Lightbulb className="mr-2 h-4 w-4 text-amber-500" />
-          Suggest Assignments
+          Sugerir Atribuições
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>AI-Powered Suggestions</DialogTitle>
+          <DialogTitle>Sugestões com IA</DialogTitle>
           <DialogDescription>
-            Our AI has suggested the following task assignments based on team skills.
+            Nossa IA sugeriu as seguintes atribuições de tarefas com base nas habilidades da equipe.
           </DialogDescription>
         </DialogHeader>
         <div className="py-4 space-y-4">
@@ -132,16 +132,16 @@ export default function SuggestAssignmentsDialog({ project, onApplySuggestions }
           )}
            {!isLoading && suggestions.length === 0 && (
             <p className="text-center text-sm text-muted-foreground py-8">
-              {hasUnassignedTasks ? "Could not generate suggestions. Please try again." : "All tasks are already assigned."}
+              {hasUnassignedTasks ? "Não foi possível gerar sugestões. Por favor, tente novamente." : "Todas as tarefas já estão atribuídas."}
             </p>
            )}
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={() => setOpen(false)}>
-            Cancel
+            Cancelar
           </Button>
           <Button onClick={handleApply} disabled={isLoading || suggestions.length === 0}>
-            Apply Suggestions
+            Aplicar Sugestões
           </Button>
         </DialogFooter>
       </DialogContent>

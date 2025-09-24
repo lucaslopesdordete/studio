@@ -19,6 +19,7 @@ import { CalendarIcon, PlusCircle } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 export default function CreateProjectDialog() {
   const [open, setOpen] = useState(false);
@@ -35,32 +36,32 @@ export default function CreateProjectDialog() {
       <DialogTrigger asChild>
         <Button>
           <PlusCircle className="mr-2 h-4 w-4" />
-          New Project
+          Novo Projeto
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Create New Project</DialogTitle>
+          <DialogTitle>Criar Novo Projeto</DialogTitle>
           <DialogDescription>
-            Fill in the details below to start a new project.
+            Preencha os detalhes abaixo para iniciar um novo projeto.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right">
-              Name
+              Nome
             </Label>
-            <Input id="name" defaultValue="New Website" className="col-span-3" />
+            <Input id="name" defaultValue="Novo Website" className="col-span-3" />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="description" className="text-right">
-              Description
+              Descrição
             </Label>
-            <Textarea id="description" className="col-span-3" placeholder="Describe your project..." />
+            <Textarea id="description" className="col-span-3" placeholder="Descreva seu projeto..." />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="deadline" className="text-right">
-              Deadline
+              Prazo
             </Label>
             <Popover>
               <PopoverTrigger asChild>
@@ -72,7 +73,7 @@ export default function CreateProjectDialog() {
                   )}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {date ? format(date, 'PPP') : <span>Pick a date</span>}
+                  {date ? format(date, 'PPP', { locale: ptBR }) : <span>Escolha uma data</span>}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">
@@ -81,14 +82,15 @@ export default function CreateProjectDialog() {
                   selected={date}
                   onSelect={setDate}
                   initialFocus
+                  locale={ptBR}
                 />
               </PopoverContent>
             </Popover>
           </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
-          <Button type="submit" onClick={handleCreate}>Create Project</Button>
+          <Button variant="outline" onClick={() => setOpen(false)}>Cancelar</Button>
+          <Button type="submit" onClick={handleCreate}>Criar Projeto</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

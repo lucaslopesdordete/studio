@@ -7,15 +7,16 @@ import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import { useMemo } from 'react';
 
 const CHART_COLORS = {
-  'To Do': 'hsl(var(--muted-foreground) / 0.5)',
-  'In Progress': 'hsl(var(--primary))',
-  'Done': 'hsl(var(--chart-2))',
+  'A Fazer': 'hsl(var(--muted-foreground) / 0.5)',
+  'Em Progresso': 'hsl(var(--primary))',
+  'Concluído': 'hsl(var(--chart-2))',
 };
 
 export default function ProjectCharts({ tasks }: { tasks: Task[] }) {
   const chartData = useMemo(() => {
     const statuses = tasks.reduce((acc, task) => {
-      acc[task.status] = (acc[task.status] || 0) + 1;
+      const translatedStatus = task.status === 'To Do' ? 'A Fazer' : task.status === 'In Progress' ? 'Em Progresso' : 'Concluído';
+      acc[translatedStatus] = (acc[translatedStatus] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
@@ -27,7 +28,7 @@ export default function ProjectCharts({ tasks }: { tasks: Task[] }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Task Status Overview</CardTitle>
+        <CardTitle>Visão Geral do Status das Tarefas</CardTitle>
       </CardHeader>
       <CardContent>
         {totalTasks > 0 ? (
@@ -52,7 +53,7 @@ export default function ProjectCharts({ tasks }: { tasks: Task[] }) {
           </ChartContainer>
         ) : (
           <div className="flex justify-center items-center h-[250px] text-muted-foreground">
-            No tasks yet.
+            Nenhuma tarefa ainda.
           </div>
         )}
       </CardContent>
