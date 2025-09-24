@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { notFound } from 'next/navigation';
 import { projects as initialProjects } from '@/lib/data';
 import { Project, Task } from '@/lib/types';
@@ -10,6 +10,12 @@ import SuggestAssignmentsDialog from '@/components/suggest-assignments-dialog';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { formatDistanceToNow } from 'date-fns';
+
+export async function generateStaticParams() {
+  return initialProjects.map(project => ({
+    id: project.id,
+  }));
+}
 
 export default function ProjectPage({ params }: { params: { id: string } }) {
   const [project, setProject] = useState<Project | null>(null);
