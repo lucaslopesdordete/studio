@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
   title: 'ProjectZen',
-  description: 'Collaborate, manage, and achieve your project goals with ease.',
+  description: 'Colabore, gerencie e alcance as metas do seu projeto com facilidade.',
 };
 
 export default function RootLayout({
