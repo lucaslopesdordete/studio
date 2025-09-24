@@ -1,3 +1,4 @@
+'use client';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -8,9 +9,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Menu } from 'lucide-react';
+import { useAuth, useUser } from '@/firebase';
+import { Menu, LogOut } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export function AppHeader({ onMenuClick }: { onMenuClick?: () => void }) {
+  const { user } = useUser();
+  const auth = useAuth();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await auth.signOut();
+    router.push('/login');
+  };
+
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 backdrop-blur-sm px-4 md:px-6">
       <Button
@@ -27,8 +39,8 @@ export function AppHeader({ onMenuClick }: { onMenuClick?: () => void }) {
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative h-10 w-10 rounded-full">
             <Avatar className="h-10 w-10">
-              <AvatarImage src="https://picsum.photos/seed/user/40/40" alt="Usuário" data-ai-hint="person face" />
-              <AvatarFallback>OC</AvatarFallback>
+              <AvatarImage src={user?.photoURL ?? undefined} alt={user?.displayName ?? 'Usuário'} data-ai-hint="person face" />
+              <AvatarFallback>{user?.displayName?.charAt(0) ?? 'O'}</AvatarFallback>
             </Avatar>
           </Button>
         </DropdownMenuTrigger>
@@ -38,7 +50,10 @@ export function AppHeader({ onMenuClick }: { onMenuClick?: () => void }) {
           <DropdownMenuItem>Configurações</DropdownMenuItem>
           <DropdownMenuItem>Suporte</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Sair</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleLogout} className="flex items-center gap-2">
+            <LogOut className="h-4 w-4" />
+            <span>Sair</span>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </header>
