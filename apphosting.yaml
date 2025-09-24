@@ -5,3 +5,7 @@ runConfig:
   # Increase this value if you'd like to automatically spin up
   # more instances in response to increased traffic.
   maxInstances: 1
+build:
+  # Specifies the directory where the build artifacts are located.
+  # For Next.js, this is typically '.next'.
+  outputDir: .next
