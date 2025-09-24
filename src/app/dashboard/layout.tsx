@@ -25,7 +25,7 @@ export default function DashboardLayout({
         </main>
       </div>
       <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-        <SheetContent side="left" className="p-0 w-[280px]">
+        <SheetContent side="left" className="p-0 w-[280px] bg-card">
           <AppSidebar projects={projects} />
         </SheetContent>
       </Sheet>
