@@ -1,0 +1,221 @@
+{
+  "entities": {
+    "Project": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Project",
+      "type": "object",
+      "description": "Represents a project in the ProjectZen application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the project."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the project."
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of the project."
+        },
+        "deadline": {
+          "type": "string",
+          "description": "Deadline for the project completion.",
+          "format": "date-time"
+        },
+        "teamMemberIds": {
+          "type": "array",
+          "description": "References to TeamMember. (Relationship: TeamMember N:N Project)",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "deadline"
+      ]
+    },
+    "Task": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Task",
+      "type": "object",
+      "description": "Represents a task within a project.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the task."
+        },
+        "projectId": {
+          "type": "string",
+          "description": "Reference to Project. (Relationship: Project 1:N Task)"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the task."
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of the task."
+        },
+        "assignedToId": {
+          "type": "string",
+          "description": "Reference to TeamMember. (Relationship: TeamMember 1:N Task) The team member assigned to the task."
+        },
+        "progress": {
+          "type": "number",
+          "description": "Progress of the task (e.g., 0-100 representing percentage complete)."
+        }
+      },
+      "required": [
+        "id",
+        "projectId",
+        "name",
+        "description",
+        "assignedToId",
+        "progress"
+      ]
+    },
+    "TeamMember": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "TeamMember",
+      "type": "object",
+      "description": "Represents a team member working on the project.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the team member."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the team member."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the team member.",
+          "format": "email"
+        },
+        "skills": {
+          "type": "array",
+          "description": "List of skills possessed by the team member.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "email",
+        "skills"
+      ]
+    },
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user account for the application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the user account."
+        },
+        "username": {
+          "type": "string",
+          "description": "Username for the user account."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address associated with the user account.",
+          "format": "email"
+        }
+      },
+      "required": [
+        "id",
+        "username",
+        "email"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores user account information. Uses path-based ownership for private user data.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user.  This enforces ownership."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/projects/{projectId}",
+        "definition": {
+          "entityName": "Project",
+          "schema": {
+            "$ref": "#/backend/entities/Project"
+          },
+          "description": "Stores project information. Includes denormalized 'teamMemberIds' for authorization independence.",
+          "params": [
+            {
+              "name": "projectId",
+              "description": "The unique identifier for the project."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/projects/{projectId}/tasks/{taskId}",
+        "definition": {
+          "entityName": "Task",
+          "schema": {
+            "$ref": "#/backend/entities/Task"
+          },
+          "description": "Stores task information within a specific project. Uses a subcollection to maintain the project-task relationship.",
+          "params": [
+            {
+              "name": "projectId",
+              "description": "The unique identifier for the project."
+            },
+            {
+              "name": "taskId",
+              "description": "The unique identifier for the task."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/team_members/{teamMemberId}",
+        "definition": {
+          "entityName": "TeamMember",
+          "schema": {
+            "$ref": "#/backend/entities/TeamMember"
+          },
+          "description": "Stores team member information.",
+          "params": [
+            {
+              "name": "teamMemberId",
+              "description": "The unique identifier for the team member."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to manage projects, tasks, and team members for the ProjectZen application. It emphasizes authorization independence through denormalization and structural segregation for simplified security rules and efficient queries. User data is stored under `/users/{userId}`. Projects are stored under `/projects/{projectId}` and contain denormalized `teamMemberIds` from the project for Authorization Independence. Tasks are stored in a subcollection `/projects/{projectId}/tasks/{taskId}` to maintain a clear hierarchical relationship and simplify queries. All documents in a collection will share the same security requirements (Homogeneous Security Posture). This design supports secure `list` operations by segregating data based on access requirements and leveraging path-based ownership."
+  }
+}
